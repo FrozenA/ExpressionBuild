@@ -56,8 +56,18 @@ public class Solve {
             if (is_op(strs[i])) {
                 Pair b = st.pop();
                 Pair a = st.pop();
-                cal.append(a.toString() + " ");
-                cal.append(b.toString() + " ");
+                if (strs[i].charAt(0) != '-') {
+                    if (a.compare(b)) {
+                        cal.append(a.toString() + " ");
+                        cal.append(b.toString() + " ");
+                    } else {
+                        cal.append(b.toString() + " ");
+                        cal.append(a.toString() + " ");
+                    }
+                } else {
+                    cal.append(b.toString() + " ");
+                    cal.append(a.toString() + " ");
+                }
                 if (strs[i].compareTo("+") == 0) {
                     a.add(b);
                 } else if (strs[i].compareTo("*") == 0) {
@@ -95,7 +105,8 @@ public class Solve {
                 i--;
                 continue;
             }
-            out_exp.println((i + 1) + "." + expression);
+            st.add(cal.toString());
+            out_exp.println((i + 1) + "." + expression + " =");
             out_ans.println(ans.toString());
         }
         in.close();

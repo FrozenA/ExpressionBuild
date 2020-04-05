@@ -85,6 +85,8 @@ public class Pair {
     }
 
     public Pair div(Pair b) {
+        if (b.first == 0)
+            return new Pair(-1, 0);
         Pair a = new Pair(b);
         this.mul(new Pair(a.second, a.first));
         gcd();
