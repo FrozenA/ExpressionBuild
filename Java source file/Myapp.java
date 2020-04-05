@@ -1,12 +1,14 @@
 import java.io.*;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class Myapp {
     public static void main(String[] args) throws IOException {
         // check
         // -e <exercisefile> -a <answerfile>
         for (int i = 0; i < args.length; i++) {
-            if (args[i].compareTo("-e") != 0) {
-                if (i + 3 >= args.length) {
+            if (args[i].compareTo("-e") == 0) {
+                if (i + 3 > args.length) {
                     System.out.println("Fail : no find \"-e <exercisefile> -a <answerfile>\"");
                     return;
                 }
@@ -15,19 +17,33 @@ public class Myapp {
                     return;
                 }
                 if (args[i + 2].compareTo("-a") != 0) {
-                    System.out.println("Fail : no find \"-e <exercisefile> -a <answerfile>\"");
+                    System.out.println("Fail : no find \"-a\"");
                     return;
                 }
                 if (new File(args[i + 3]).exists() == false) {
                     System.out.println("Fail : No file found");
                     return;
                 }
+
+                String expressionFile = args[i + 1];
+                String answerFile = args[i + 3];
+                if (new File(expressionFile).exists() == false || new File(answerFile).exists() == false) {
+                    System.out.println("Fail : No file found");
+                    return;
+                }
+                Scanner in_exp = new Scanner(Paths.get(expressionFile));
+                Scanner in_ans = new Scanner(Paths.get(answerFile));
+                PrintWriter out_res = new PrintWriter("Grade.txt");
+                Solve.check(in_exp, in_ans, out_res);
+                in_exp.close();
+                in_ans.close();
+                out_res.close();
+                return;
             }
-            Solve.check(args[i + 1], args[i + 3]);
         }
         // print exercise and ans
         // -r number -n number
-        int r = 20, n = 10;
+        int r = 20, n = 20;
         for (int i = 0; i < args.length; i++) {
             if (args[i].compareTo("-r") == 0) {
                 if (i + 1 >= args.length) {

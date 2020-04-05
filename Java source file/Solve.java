@@ -2,6 +2,7 @@ import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.Vector;
 
 public class Solve {
 
@@ -44,7 +45,28 @@ public class Solve {
         return suf.toString();
     }
 
-    public static void check(String expression, String answer) {
+    public static void check(Scanner in_exp, Scanner in_ans, PrintWriter out) {
+        Vector<Integer> Correct = new Vector<>();
+        Vector<Integer> Wrong = new Vector<>();
+        for (int i = 1; in_exp.hasNext() && in_ans.hasNext(); ++i) {
+            String expression = in_exp.nextLine();
+            String ans = in_ans.nextLine();
+            String o_ans = calculate(expression.substring(expression.indexOf(".") + 1, expression.indexOf("=")),
+                    new StringBuilder("")).toString();
+            if (ans.equals(o_ans)) {
+                Correct.add(i);
+            } else {
+                Wrong.add(i);
+            }
+        }
+        out.print("Correct: " + Correct.size() + "( ");
+        for (int x : Correct)
+            out.print("" + x + " ");
+        out.println(")");
+        out.print("Wrong: " + Wrong.size() + "( ");
+        for (int x : Wrong)
+            out.print("" + x + " ");
+        out.println(")");
     }
 
     public static Pair calculate(String expression, StringBuilder cal) {
@@ -103,12 +125,6 @@ public class Solve {
                 return;
             }
             Pair ans = calculate(expression, cal);
-            //
-            // System.out.println(expression);
-            // System.out.println("test : " + cal.toString());
-            // System.out.println(ans.toString());
-            // System.out.println("");
-            //
             if (ans.isLessZero() || st.contains(cal.toString())) {
                 i--;
                 continue;

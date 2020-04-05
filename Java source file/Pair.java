@@ -119,6 +119,8 @@ public class Pair {
     }
 
     public String toString() {
+        if (this.first == 0)
+            return "0";
         if (this.second != 1)
             return "" + this.first + "/" + this.second;
         else
