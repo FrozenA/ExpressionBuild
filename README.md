@@ -1,4 +1,4 @@
-# ExpressionBuild
+# ExpressionBuilder
 # 表达式生成器
 ## 1. 功能
 * 生成 小学四则运算题目、答案、对比其他答案
