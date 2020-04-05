@@ -42,6 +42,8 @@ public class Pair {
             b ^= a;
             a ^= b;
         }
+        if (this.first == 0 || this.second == 0)
+            return;
         while (b > 0) {
             int c = a % b;
             a = b;
@@ -85,8 +87,11 @@ public class Pair {
     }
 
     public Pair div(Pair b) {
-        if (b.first == 0)
-            return new Pair(-1, 0);
+        if (b.first == 0) {
+            this.first = -1;
+            this.second = 0;
+            return this;
+        }
         Pair a = new Pair(b);
         this.mul(new Pair(a.second, a.first));
         gcd();

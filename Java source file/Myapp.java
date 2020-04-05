@@ -27,7 +27,7 @@ public class Myapp {
         }
         // print exercise and ans
         // -r number -n number
-        int r = 20, n = 3;
+        int r = 20, n = 10;
         for (int i = 0; i < args.length; i++) {
             if (args[i].compareTo("-r") == 0) {
                 if (i + 1 >= args.length) {

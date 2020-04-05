@@ -45,7 +45,6 @@ public class Solve {
     }
 
     public static void check(String expression, String answer) {
-
     }
 
     public static Pair calculate(String expression, StringBuilder cal) {
@@ -56,7 +55,8 @@ public class Solve {
             if (is_op(strs[i])) {
                 Pair b = st.pop();
                 Pair a = st.pop();
-                if (strs[i].charAt(0) != '-') {
+                //
+                if (strs[i].charAt(0) == '+' || strs[i].charAt(0) == '*') {
                     if (a.compare(b)) {
                         cal.append(a.toString() + " ");
                         cal.append(b.toString() + " ");
@@ -68,12 +68,16 @@ public class Solve {
                     cal.append(b.toString() + " ");
                     cal.append(a.toString() + " ");
                 }
+                //
                 if (strs[i].compareTo("+") == 0) {
                     a.add(b);
                 } else if (strs[i].compareTo("*") == 0) {
                     a.mul(b);
                 } else if (strs[i].compareTo("/") == 0) {
                     a.div(b);
+                    if (a.isLessZero()) {
+                        return new Pair(-1, 0);
+                    }
                 } else if (strs[i].compareTo("-") == 0) {
                     a.dec(b);
                     if (a.isLessZero()) {
@@ -90,17 +94,44 @@ public class Solve {
     }
 
     public static void Build(int r, int n, PrintWriter out_exp, PrintWriter out_ans) {
+        HashSet<String> st = new HashSet<String>();
+        for (int i = 0; i < n; ++i) {
+            StringBuilder cal = new StringBuilder("");
+            String expression = Builder.get_expression(r);
+            if (expression.equals(" ")) {
+                System.out.println("Error");
+                return;
+            }
+            Pair ans = calculate(expression, cal);
+            //
+            // System.out.println(expression);
+            // System.out.println("test : " + cal.toString());
+            // System.out.println(ans.toString());
+            // System.out.println("");
+            //
+            if (ans.isLessZero() || st.contains(cal.toString())) {
+                i--;
+                continue;
+            }
+            st.add(cal.toString());
+            out_exp.println((i + 1) + "." + expression + " =");
+            out_ans.println(ans.toString());
+        }
+    }
+
+    public static void test_Build(int r, int n, PrintWriter out_exp, PrintWriter out_ans) {
         Scanner in = new Scanner(System.in);
         HashSet<String> st = new HashSet<String>();
         for (int i = 0; i < n; ++i) {
             StringBuilder cal = new StringBuilder("");
-            // String expression = Build.get_expression(r);
             String expression = in.nextLine();
             Pair ans = calculate(expression, cal);
-            //
+
+            System.out.println(expression);
             System.out.println("test : " + cal.toString());
             System.out.println(ans.toString());
-            //
+            System.out.println("");
+
             if (ans.isLessZero() || st.contains(cal.toString())) {
                 i--;
                 continue;
