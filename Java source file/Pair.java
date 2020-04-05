@@ -66,8 +66,11 @@ public class Pair {
         a.first *= this.second;
         this.first *= a.second;
         this.first -= a.first;
-        if (this.first < 0)
-            return new Pair(-1, 0);
+        if (this.first < 0) {
+            this.first = -1;
+            this.second = 0;
+            return this;
+        }
         this.second *= a.second;
         gcd();
         return this;
@@ -102,7 +105,16 @@ public class Pair {
         return true;
     }
 
-    void print() {
-        System.out.println(this.first + "/" + this.second);
+    public boolean isLessZero() {
+        if (this.equal(new Pair(-1, 0)))
+            return true;
+        return false;
+    }
+
+    public String toString() {
+        if (this.second != 1)
+            return "" + this.first + "/" + this.second;
+        else
+            return "" + this.first;
     }
 }

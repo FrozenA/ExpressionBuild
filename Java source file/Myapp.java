@@ -1,6 +1,4 @@
 import java.io.*;
-import java.nio.file.Paths;
-import java.util.*;
 
 public class Myapp {
     public static void main(String[] args) throws IOException {
@@ -29,7 +27,7 @@ public class Myapp {
         }
         // print exercise and ans
         // -r number -n number
-        int r = 20, n = 10;
+        int r = 20, n = 3;
         for (int i = 0; i < args.length; i++) {
             if (args[i].compareTo("-r") == 0) {
                 if (i + 1 >= args.length) {
@@ -58,6 +56,10 @@ public class Myapp {
                 }
             }
         }
-        Solve.Build(r, n);
+        PrintWriter out_exp = new PrintWriter("Exercise.txt");
+        PrintWriter out_ans = new PrintWriter("Answers.txt");
+        Solve.Build(r, n, out_exp, out_ans);
+        out_exp.close();
+        out_ans.close();
     }
 }
