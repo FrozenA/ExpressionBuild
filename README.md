@@ -14,3 +14,8 @@
 控制运算数范围，将生成[0,10]的运算数，默认r为20
 * -e \<exercisefile\> -a \<answerfile\>   
 计算出\<exercisefile\>中表达式的答案，并与\<answerfile\>做对比，输出对比结果
+
+#### Java source file
+* 存放java源文件
+#### ExpressionBuilder.exe
+* 编译好的exe文件，未打包jdk，需要java环境运行
