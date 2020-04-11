@@ -121,9 +121,12 @@ public class Pair {
     public String toString() {
         if (this.first == 0)
             return "0";
-        if (this.second != 1)
-            return "" + this.first + "/" + this.second;
-        else
+        if (this.second == 1)
             return "" + this.first;
+        if (this.first >= this.second) {
+            return "" + this.first / this.second + "\'" + (this.first - (this.first / this.second * this.second)) + "/"
+                    + this.second;
+        }
+        return "" + this.first + "/" + this.second;
     }
 }

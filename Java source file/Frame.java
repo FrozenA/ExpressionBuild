@@ -28,7 +28,7 @@ public class Frame {
     public void surface() throws IOException, InterruptedException {
 
         JFrame.setDefaultLookAndFeelDecorated(true);
-        jframe.setBounds(0, 0,360, 720);
+        jframe.setBounds(0, 0, 400, 80);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      //关闭窗口
 
 
@@ -42,30 +42,34 @@ public class Frame {
         //ok按钮实现参数的输入并生成题目
 
         ok.addActionListener(e -> {
-            PrintWriter out_exp = null;
-            try {
-                out_exp = new PrintWriter("Exercise.txt");
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
-            }
-            PrintWriter out_ans = null;
-            try {
-                out_ans = new PrintWriter("Answers.txt");
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
-            }
-            Solve.Build(Integer.parseInt(r.getText()), Integer.parseInt(n.getText()), out_exp, out_ans);
-            out_exp.close();
-            out_ans.close();
-            out_exp.flush();
-            String filepath = System.getProperty("user.dir") + "/Exercise.txt";
-            File file = new File(filepath);
-            try {
-                BufferedReader input = new BufferedReader(new InputStreamReader(
-                        new FileInputStream(file)));
-                jTextArea1.read(input, "READING FILE :-)");
-            } catch (Exception ee) {
-                ee.printStackTrace();
+            if (n.getText().equals("please enter the parameter n") || r.getText().equals("please enter the parameter r")) {
+                JOptionPane.showMessageDialog(null, "请输入参数!");
+            } else {
+                PrintWriter out_exp = null;
+                try {
+                    out_exp = new PrintWriter("Exercise.txt");
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                PrintWriter out_ans = null;
+                try {
+                    out_ans = new PrintWriter("Answers.txt");
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                Solve.Build(Integer.parseInt(r.getText()), Integer.parseInt(n.getText()), out_exp, out_ans);
+                out_exp.close();
+                out_ans.close();
+                out_exp.flush();
+                String filepath = System.getProperty("user.dir") + "/Exercise.txt";
+                File file = new File(filepath);
+                try {
+                    BufferedReader input = new BufferedReader(new InputStreamReader(
+                            new FileInputStream(file)));
+                    jTextArea1.read(input, "READING FILE :-)");
+                } catch (Exception ee) {
+                    ee.printStackTrace();
+                }
             }
         });
 
