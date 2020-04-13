@@ -125,7 +125,7 @@ public class Solve {
                 return;
             }
             Pair ans = calculate(expression, cal);
-            if (ans.isLessZero() || st.contains(cal.toString())) {
+            if (ans.isLessZero() || st.contains(cal.toString()) || ans.compare(new Pair(r, 1)) || ans.second >= r) {
                 i--;
                 continue;
             }

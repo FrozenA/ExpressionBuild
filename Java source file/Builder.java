@@ -2,10 +2,10 @@ import java.util.Random;
 
 public class Builder {
     public static String get_expression(int r) {
-        char[] compute = { '+', '-', '*', '/' };
+        char[] compute = {'+', '-', '*', '/'};
         Random r1 = new Random();
         StringBuilder expression = new StringBuilder();
-        int computeNum = r1.nextInt(3);
+
         String[] s = new String[4];
         char[] ch = new char[3];
         for (int i = 0; i < s.length; ++i) {
@@ -15,6 +15,7 @@ public class Builder {
             ch[j] = compute[r1.nextInt(4)];
         }
         int flag = r1.nextInt(2);
+        int computeNum = r1.nextInt(3);
         switch (computeNum) {
             case 0:
                 expression.append(s[0] + " " + ch[0] + " " + s[1]);
@@ -60,6 +61,7 @@ public class Builder {
                         case 5:
                             expression.append(s[0] + " " + ch[0] + " " + s[1] + " " + ch[1] + " " + "(" + " " + s[2]
                                     + " " + ch[2] + " " + s[3] + " " + ")");
+                            break;
                         default:
                             expression.append(" ");
                     }
@@ -80,7 +82,9 @@ public class Builder {
         StringBuilder str = new StringBuilder("");
         Random ran = new Random();
         integer[0] = ran.nextInt(r);
-        integer[1] = ran.nextInt(r) + 1;
+        while((integer[1] = ran.nextInt(r)) == 0){
+            integer[1] = ran.nextInt(r);
+        }
         if (integer[0] % integer[1] == 0) {
             nums = integer[0] / integer[1];
             str.append(nums);
